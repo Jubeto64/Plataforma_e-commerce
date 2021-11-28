@@ -1,8 +1,21 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body{
+  background-image: url('/public/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-a {
-  color: #00B7FF;
+.center-div{
+  padding-top: 10%;
+}
+
+.btn.btn-success{
+  padding: .4em 2em;
+}
+
+form{
+  padding: 0 3em;
+}
+
+span{
+  font-size: .8em;
 }
