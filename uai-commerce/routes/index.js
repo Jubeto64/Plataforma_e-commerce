@@ -56,4 +56,8 @@ router.post('/nova_conta', function (req, res) {
   });
 });
 
+router.get('/edita_conta', function(req, res, next) {
+  res.render('edita_conta', { docs: [usuario_logado] });
+});
+
 module.exports = router;
