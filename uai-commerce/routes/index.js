@@ -21,4 +21,27 @@ router.get('/nova_conta', function(req, res, next) {
   res.render('nova_conta', { title: 'Express' });
 });
 
+router.post('/nova_conta', function (req, res) {
+  var novo_usuario = {
+    Nome: req.body.name, 
+    Email: req.body.email, 
+    Telefone: req.body.phone,
+    Senha: req.body.password,
+    CPF: req.body.cpf,
+    RG: req.body.rg,
+    DataNascimento:req.body.birthday
+  }
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  var novo_cliente = new Clientes(novo_usuario);
+  novo_cliente.save(function (err) {
+    if (err) {
+      console.log("Error! " + err.message);
+      return err;
+    }
+    else {
+      res.render('home', {docs:[novo_usuario]});
+    }
+  });
+});
+
 module.exports = router;
