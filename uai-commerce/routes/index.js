@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
-const credential = {
-  email: "admin@gmail.com",
-  password: "admin123"
-}
+var db = require("../db");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,12 +8,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/login', (req, res)=>{
-  if(req.body.email == credential.email && req.body.password == credential.password){
-    //req.session.user = req.body.email;
-    console.log('Deu certo');
-  }else{
-    console.log('Não deu certo');
-  }
+  let filtro = {Email: req.body.email, Senha: req.body.password}
+
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.find(filtro).lean().exec(function (e, docs) {
+    //res.render('clientesencontrados', { "clientlist": docs });
+    console.log(docs)
+  });
+
   res.render('index', { title: 'Express' });
 });
 
