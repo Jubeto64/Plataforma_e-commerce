@@ -60,4 +60,31 @@ router.get('/edita_conta', function(req, res, next) {
   res.render('edita_conta', { docs: [usuario_logado] });
 });
 
+router.post('/edita_conta', function(req, res, next) {
+  var usuario_editado = {
+    Nome: req.body.name, 
+    Email: req.body.email, 
+    Telefone: req.body.phone,
+    Senha: req.body.password,
+    CPF: req.body.cpf,
+    RG: req.body.rg,
+    DataNascimento:req.body.birthday
+  }
+
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.updateOne({_id: usuario_logado._id}, usuario_editado, function (err) {
+      if (err)    return console.error(err);
+      else{
+        Clientes.find(usuario_editado).lean().exec(function (e, docs) {
+          if(!e){
+            usuario_logado = docs[0];
+            res.render('home', { docs});
+          }else{
+            console.log('Erro ao fazer edição!');
+          }
+        });
+      }
+  });
+});
+
 module.exports = router;
