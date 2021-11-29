@@ -13,10 +13,8 @@ router.post('/login', (req, res)=>{
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find(filtro).lean().exec(function (e, docs) {
     //res.render('clientesencontrados', { "clientlist": docs });
-    console.log(docs)
+    res.render('home', { docs});
   });
-
-  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
