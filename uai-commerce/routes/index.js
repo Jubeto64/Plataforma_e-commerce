@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require("../db");
+var usuario_logado
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -12,8 +13,12 @@ router.post('/login', (req, res)=>{
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find(filtro).lean().exec(function (e, docs) {
-    //res.render('clientesencontrados', { "clientlist": docs });
-    res.render('home', { docs});
+    if(!e){
+      usuario_logado = docs[0];
+      res.render('home', { docs});
+    }else{
+      console.log('Erro ao fazer login!');
+    }
   });
 });
 
@@ -39,7 +44,14 @@ router.post('/nova_conta', function (req, res) {
       return err;
     }
     else {
-      res.render('home', {docs:[novo_usuario]});
+      Clientes.find(novo_usuario).lean().exec(function (e, docs) {
+        if(!e){
+          usuario_logado = docs[0];
+          res.render('home', { docs});
+        }else{
+          console.log('Erro ao fazer login!');
+        }
+      });
     }
   });
 });
