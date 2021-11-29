@@ -17,4 +17,8 @@ router.post('/login', (req, res)=>{
   });
 });
 
+router.get('/nova_conta', function(req, res, next) {
+  res.render('nova_conta', { title: 'Express' });
+});
+
 module.exports = router;
