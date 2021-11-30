@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require("../db");
 var usuario_logado
+var senhaAdmin = 'admin123'
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -44,8 +45,14 @@ router.post('/nova_conta', function (req, res) {
     Senha: req.body.password,
     CPF: req.body.cpf,
     RG: req.body.rg,
-    DataNascimento:req.body.birthday
+    DataNascimento:req.body.birthday,
+    ADM: 0
   }
+
+  if(req.body.passwordADM == senhaAdmin){
+    novo_usuario.ADM = 1;
+  }
+
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   var novo_cliente = new Clientes(novo_usuario);
   novo_cliente.save(function (err) {
