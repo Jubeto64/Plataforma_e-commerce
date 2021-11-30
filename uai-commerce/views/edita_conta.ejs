@@ -48,27 +48,32 @@
           </div>
           <form action="/edita_conta" method='post' class="pt-3">
               <div class="form-group">
-                  <label for="birthday">Nome</label>
+                  <label for="name">Nome</label>
                   <input type="text" class="form-control" placeholder="Nome" name="name" value="<%= docs[0].Nome %>">
               </div>
               <br>
               <div class="form-group">
-                  <label for="birthday">E-mail</label>
+                  <label for="email">E-mail</label>
                   <input type="email" class="form-control" placeholder="E-mail" name="email" value="<%= docs[0].Email %>">
               </div>
               <br>
               <div class="form-group">
-                  <label for="birthday">Telefone</label>
+                  <label for="phone">Telefone</label>
                   <input type="text" class="form-control" placeholder="Telefone" name="phone" value="<%= docs[0].Telefone %>">
               </div>
               <br>
               <div class="form-group">
-                  <label for="birthday">Senha</label>
+                  <label for="password">Senha</label>
                   <input type="text" class="form-control" name="password" placeholder="Senha" value="<%= docs[0].Senha %>">
               </div>
               <br>
               <div class="form-group">
-                  <label for="birthday">RG</label>
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" name="cpf" placeholder="CPF" value="<%= docs[0].CPF%>">
+              </div>
+              <br>
+              <div class="form-group">
+                  <label for="rg">RG</label>
                   <input type="text" class="form-control" name="rg" placeholder="RG"  value="<%= docs[0].RG%>">
               </div>
               <br>
