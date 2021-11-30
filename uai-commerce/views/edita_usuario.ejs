@@ -51,7 +51,7 @@
           <div class="title pb-5">
               <h2 class="font-weight-bold">Perfil do Usuário</h2>
           </div>
-          <form action="/edita_conta" method='post' class="pt-3">
+          <form action="/edita_usuario" method='post' class="pt-3">
               <div class="form-group">
                   <label for="name">Nome</label>
                   <input type="text" class="form-control" placeholder="Nome" name="name" value="<%= docs[0].Nome %>">
@@ -88,6 +88,7 @@
               </div>
               <br>
               <br>
+              <input type="hidden" value="<%= docs[0]._id %>" name="id">
               <button type="submit" class="btn btn-success rounded-pill">Salvar Modificações</button>
               <a href="/remove_conta">Remover Conta</a>
               <br>

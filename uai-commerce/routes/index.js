@@ -75,9 +75,16 @@ router.get('/lista_usuarios', function(req, res, next) {
   });
 });
 
-router.get('/edita_usuario', function(req, res, next) {
-  res.render('edita_usuario', { docs: [usuario_logado] });
-});
+router.post('/id_edita_usuario',  function (req, res) {
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.find({_id: req.body.id}).lean().exec(function (e, docs) {
+    if(!e && docs.length > 0){
+      res.render('edita_usuario', {docs});
+    }else{
+      console.log('Erro ao fazer login!');
+    }
+  });
+})
 
 router.post('/edita_usuario', function(req, res, next) {
   var usuario_editado = {
@@ -91,13 +98,12 @@ router.post('/edita_usuario', function(req, res, next) {
   }
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
-  Clientes.updateOne({"_id": req.body.value}, usuario_editado, function (err) {
+  Clientes.updateOne({"_id": req.body.id}, usuario_editado, function (err) {
       if (err)  return console.error(err);
       else{
-        Clientes.find(usuario_editado).lean().exec(function (e, docs) {
+        Clientes.find(usuario_editado).lean().exec(function (e, docs2) {
           if(!e){
-            usuario_logado = docs[0];
-            res.render('home', { docs});
+            res.render('home',{ docs: [usuario_logado] });
           }else{
             console.log('Erro ao fazer edição!');
           }

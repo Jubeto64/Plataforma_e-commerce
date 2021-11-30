@@ -68,17 +68,19 @@
                       <th>CPF</th>
                     </tr>
                     <div>
-                        <form action="edita_usuario">
-                            <% docs.forEach(function(usuario){ %>
-                                <tr>
-                                    <td w=><%= usuario.Nome %></td>
-                                    <td><%= usuario.Email %></td>
-                                    <td><%= usuario.CPF %></td>
-                                    <td><button type="submit" class="btn btn-success rounded-pill">Editar usuário</button></td>
-                                    <input type="hidden" value="<%= usuario._id %>">
-                                </tr>
-                            <%})%>
-                        </form>
+                        <% docs.forEach(function(usuario){ %>
+                            <tr>
+                                <td w=><%= usuario.Nome %></td>
+                                <td><%= usuario.Email %></td>
+                                <td><%= usuario.CPF %></td>
+                                <td>
+                                    <form action="id_edita_usuario" method="post">
+                                        <input type="hidden" value="<%= usuario._id %>" name="id">
+                                        <button type="submit" class="btn btn-success rounded-pill">Editar usuário</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <%})%>
                     </div>
                 </table>
             </div>
