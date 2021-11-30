@@ -75,6 +75,7 @@
                                     <td><%= usuario.Email %></td>
                                     <td><%= usuario.CPF %></td>
                                     <td><button type="submit" class="btn btn-success rounded-pill">Editar usuário</button></td>
+                                    <input type="hidden" value="<%= usuario._id %>">
                                 </tr>
                             <%})%>
                         </form>
