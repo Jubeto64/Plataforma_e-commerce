@@ -14,8 +14,18 @@ router.post('/login', (req, res)=>{
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find(filtro).lean().exec(function (e, docs) {
     if(!e){
-      usuario_logado = docs[0];
-      res.render('home', { docs});
+      //usuario_logado = docs[0];
+      //res.render('home', { docs});
+      if(docs[0].ADM == "1"){
+        usuario_logado = docs[0];
+        res.render('home_adm', { docs});
+      }
+      if(docs[0].ADM == "0"){
+        usuario_logado = docs[0];
+        res.render('home', { docs});
+      }else{
+        console.log('Erro ao fazer login!');      
+      }
     }else{
       console.log('Erro ao fazer login!');
     }
