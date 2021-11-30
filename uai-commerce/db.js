@@ -10,7 +10,15 @@ var userSchema = new mongoose.Schema(
         CPF: String,
         RG: String,
         DataNascimento:String,
-        ADM: Number
+        ADM: Number,
+        Rua: String,
+        Bairro: String,
+        Numero: String,
+        Complemento: String,
+        Cidade: String,
+        Estado: String,
+        TipoCadastro: String,
+        CNPJ: String
     },
     {
         collection: 'uaicommerce',

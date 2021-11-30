@@ -30,29 +30,75 @@
                     <input type="password" class="form-control" name="password" placeholder="Senha">
                 </div>
                 <br>
+
                 <div class="form-group">
-                    <input type="text" class="form-control" name="cpf" placeholder="CPF">
+                    <label for="admin">Conta de Empresa</label>
+                    <input type="checkbox" name="business" onclick="verifyBusiness(this);"/>
                 </div>
                 <br>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="rg" placeholder="RG">
+
+                <div id="personal_account">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="cpf" placeholder="CPF">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="birthday">Data de Nascimento</label>
+                        <input type="date" class="form-control" name="birthday">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="admin">Conta de Administrador</label>
+                        <input type="checkbox" name="admin" onclick="verifyAdm(this);"/>
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label for="birthday">Data de Nascimento</label>
-                    <input type="date" class="form-control" name="birthday">
+
+                <div class='d-none' id="business_account">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="cnpj" placeholder="CNPJ">
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="form-group">
-                    <label for="admin">Conta de Administrador</label>
-                    <input type="checkbox" name="admin" onclick="dynInput(this);"/>
+
+                <div class="d-none" id="divADM">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="rg" placeholder="RG">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="password">Digite a senha de Administrador:</label>
+                        <input type="password" name="passwordADM"/>
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="form-group d-none" id="divPasswordADM">
-                    <label for="password">Digite a senha de Administrador:</label>
-                    <input type="password" name="passwordADM"/>
+
+                <div id="notADM">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Rua" name="street">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Bairro" name="district">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Número" name="number">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Complemento" name="complement">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Cidade" name="city">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Estado" name="state">
+                    </div>
+                    <br>
                 </div>
-                <br>
                 <button type="submit" class="btn btn-success rounded-pill">Criar</button>
                 <br>
             </form>
@@ -60,12 +106,25 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        function dynInput(cbox) {
+        function verifyAdm(cbox) {
             if(cbox.checked) {
-                $('#divPasswordADM').removeClass('d-none');
+                $('#divADM').removeClass('d-none');
+                $('#notADM').addClass('d-none');
             }else{
-                $('#divPasswordADM').addClass('d-none');
+                $('#divADM').addClass('d-none');
+                $('#notADM').removeClass('d-none');
                 $('input[name="passwordADM"]').val('');
+            }
+        }
+
+        function verifyBusiness(cbox) {
+            if(cbox.checked) {
+                $('#business_account').removeClass('d-none');
+                $('#personal_account').addClass('d-none');
+            }else{
+                $('#business_account').addClass('d-none');
+                $('#personal_account').removeClass('d-none');
+                $('input[name="cnpj"]').val('');
             }
         }
     </script>
