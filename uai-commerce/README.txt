@@ -12,3 +12,9 @@ info= [
     }
 ]
 db.uaicommerce.insert(info);
+
+//Para executar o projeto:
+npm start
+
+//Endereço no navegador:
+http://localhost:3000/

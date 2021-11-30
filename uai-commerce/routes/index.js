@@ -87,4 +87,12 @@ router.post('/edita_conta', function(req, res, next) {
   });
 });
 
+router.get('/remove_conta', function(req, res, next) {
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.deleteOne({_id: usuario_logado._id}).lean().exec(function (err, docs) {
+    if(err)    return console.error(err);
+    else    res.render('index', { title: "Cliente excluído!" });
+  });
+});
+
 module.exports = router;
