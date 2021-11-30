@@ -67,7 +67,6 @@ router.get('/lista_usuarios', function(req, res, next) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find().lean().exec(function (e, docs) {
     if(!e){
-      usuario_logado = docs;
       res.render('lista_usuarios', { docs});
     }else{
       console.log('Erro ao carregar a página');
