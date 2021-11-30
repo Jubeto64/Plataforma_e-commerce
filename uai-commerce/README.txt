@@ -17,3 +17,7 @@ npm start
 
 //Endereço no navegador:
 http://localhost:3000/
+
+//consultar tudo que foi inserido direto pelo mongo
+use uai-commerce
+db.uaicommerce.find().pretty()
