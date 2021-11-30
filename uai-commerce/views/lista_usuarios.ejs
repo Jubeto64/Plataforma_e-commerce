@@ -8,11 +8,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Uai-commerce</title>
+    <title>Uai-commerce ADM</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        
+        th, td {
+          padding: 10px;
+        }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Uai-commerce<%= docs[0].ADM == 1? ' ADM' : '' %></a>
+        <a class="navbar-brand" href="#">Uai-commerce</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,9 +36,9 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <% if(docs[0].ADM == 1 ){ %>
-                  <li class="nav-item active">
-                    <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
-                  </li>
+                    <li class="nav-item active">
+                      <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
+                    </li>
                 <% } %>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,59 +55,40 @@
         </div>
     </nav>
 
-    <div class="text-center center-div" id=login>
-      <div class="container w-50 border py-5">
-          <div class="title pb-5">
-              <h2 class="font-weight-bold">Seu Perfil</h2>
-          </div>
-          <form action="/edita_conta" method='post' class="pt-3">
-              <div class="form-group">
-                  <label for="name">Nome</label>
-                  <input type="text" class="form-control" placeholder="Nome" name="name" value="<%= docs[0].Nome %>">
-              </div>
-              <br>
-              <div class="form-group">
-                  <label for="email">E-mail</label>
-                  <input type="email" class="form-control" placeholder="E-mail" name="email" value="<%= docs[0].Email %>">
-              </div>
-              <br>
-              <div class="form-group">
-                  <label for="phone">Telefone</label>
-                  <input type="text" class="form-control" placeholder="Telefone" name="phone" value="<%= docs[0].Telefone %>">
-              </div>
-              <br>
-              <div class="form-group">
-                  <label for="password">Senha</label>
-                  <input type="text" class="form-control" name="password" placeholder="Senha" value="<%= docs[0].Senha %>">
-              </div>
-              <br>
-              <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" class="form-control" name="cpf" placeholder="CPF" value="<%= docs[0].CPF%>">
-              </div>
-              <br>
-              <div class="form-group">
-                  <label for="rg">RG</label>
-                  <input type="text" class="form-control" name="rg" placeholder="RG"  value="<%= docs[0].RG%>">
-              </div>
-              <br>
-              <div class="form-group">
-                  <label for="birthday">Data de Nascimento</label>
-                  <input type="date" class="form-control" name="birthday"  value="<%= docs[0].DataNascimento %>">
-              </div>
-              <br>
-              <br>
-              <button type="submit" class="btn btn-success rounded-pill">Salvar Modificações</button>
-              <a href="/remove_conta">Remover Conta</a>
-              <br>
-          </form>
-      </div>
+    <div class="text-center center-div">
+        <div class="container w-100 border py-4">
+            <div class="title pb-5">
+                <h2 class="font-weight-bold">Lista de Usuários</h2>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                      <th>Nome</th>
+                      <th>E-mail</th>
+                      <th>CPF</th>
+                    </tr>
+                    <div>
+                        <form action="edita_usuario">
+                            <% docs.forEach(function(usuario){ %>
+                                <tr>
+                                    <td w=><%= usuario.Nome %></td>
+                                    <td><%= usuario.Email %></td>
+                                    <td><%= usuario.CPF %></td>
+                                    <td><button type="submit" class="btn btn-success rounded-pill">Editar usuário</button></td>
+                                </tr>
+                            <%})%>
+                        </form>
+                    </div>
+                </table>
+            </div>
+        </div>
     </div>
+    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

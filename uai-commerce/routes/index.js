@@ -63,6 +63,49 @@ router.post('/nova_conta', function (req, res) {
   });
 });
 
+router.get('/lista_usuarios', function(req, res, next) {
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.find().lean().exec(function (e, docs) {
+    if(!e){
+      usuario_logado = docs;
+      res.render('lista_usuarios', { docs});
+    }else{
+      console.log('Erro ao carregar a página');
+    }
+  });
+});
+
+router.get('/edita_usuario', function(req, res, next) {
+  res.render('edita_usuario', { docs: [usuario_logado] });
+});
+
+router.post('/edita_usuario', function(req, res, next) {
+  var usuario_editado = {
+    Nome: req.body.name, 
+    Email: req.body.email, 
+    Telefone: req.body.phone,
+    Senha: req.body.password,
+    CPF: req.body.cpf,
+    RG: req.body.rg,
+    DataNascimento:req.body.birthday
+  }
+
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.updateOne({"_id": req.body.value}, usuario_editado, function (err) {
+      if (err)  return console.error(err);
+      else{
+        Clientes.find(usuario_editado).lean().exec(function (e, docs) {
+          if(!e){
+            usuario_logado = docs[0];
+            res.render('home', { docs});
+          }else{
+            console.log('Erro ao fazer edição!');
+          }
+        });
+      }
+  });
+});
+
 router.get('/edita_conta', function(req, res, next) {
   res.render('edita_conta', { docs: [usuario_logado] });
 });
@@ -101,5 +144,6 @@ router.get('/remove_conta', function(req, res, next) {
     else    res.render('index', { title: "Cliente excluído!" });
   });
 });
+
 
 module.exports = router;
