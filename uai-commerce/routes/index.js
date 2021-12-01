@@ -83,7 +83,7 @@ router.get('/lista_usuarios', function(req, res, next) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find().lean().exec(function (e, docs) {
     if(!e){
-      res.render('lista_usuarios', { docs});
+      res.render('lista_usuarios', { docs, usuario_logado});
     }else{
       console.log('Erro ao carregar a página');
     }
@@ -94,7 +94,7 @@ router.post('/id_edita_usuario',  function (req, res) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find({_id: req.body.id}).lean().exec(function (e, docs) {
     if(!e && docs.length > 0){
-      res.render('edita_usuario', {docs});
+      res.render('edita_usuario', {docs, usuario_logado});
     }else{
       console.log('Erro ao fazer login!');
     }
@@ -107,9 +107,26 @@ router.post('/edita_usuario', function(req, res, next) {
     Email: req.body.email, 
     Telefone: req.body.phone,
     Senha: req.body.password,
-    CPF: req.body.cpf,
-    RG: req.body.rg,
-    DataNascimento:req.body.birthday
+    ADM: req.body.adm,
+    TipoCadastro: req.body.type
+  }
+  
+  if(usuario_editado.TipoCadastro == 'empresa'){
+    usuario_editado['CNPJ'] = req.body.cnpj;
+  }else{
+    usuario_editado['CPF'] = req.body.cpf;
+    usuario_editado['DataNascimento'] = req.body.birthday;
+  }
+
+  if(usuario_editado.ADM == 1){
+    usuario_editado['RG'] = req.body.rg;
+  }else{
+    usuario_editado['Rua'] = req.body.street;
+    usuario_editado['Bairro'] = req.body.district;
+    usuario_editado['Numero'] = req.body.number;
+    usuario_editado['Complemento'] = req.body.complement;
+    usuario_editado['Cidade'] = req.body.city;
+    usuario_editado['Estado'] = req.body.state;
   }
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
