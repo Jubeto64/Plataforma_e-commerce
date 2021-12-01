@@ -137,9 +137,26 @@ router.post('/edita_conta', function(req, res, next) {
     Email: req.body.email, 
     Telefone: req.body.phone,
     Senha: req.body.password,
-    CPF: req.body.cpf,
-    RG: req.body.rg,
-    DataNascimento:req.body.birthday
+    ADM: req.body.adm,
+    TipoCadastro: req.body.type
+  }
+  
+  if(usuario_editado.TipoCadastro == 'empresa'){
+    usuario_editado['CNPJ'] = req.body.cnpj;
+  }else{
+    usuario_editado['CPF'] = req.body.cpf;
+    usuario_editado['DataNascimento'] = req.body.birthday;
+  }
+
+  if(usuario_editado.ADM == 1){
+    usuario_editado['RG'] = req.body.rg;
+  }else{
+    usuario_editado['Rua'] = req.body.street;
+    usuario_editado['Bairro'] = req.body.district;
+    usuario_editado['Numero'] = req.body.number;
+    usuario_editado['Complemento'] = req.body.complement;
+    usuario_editado['Cidade'] = req.body.city;
+    usuario_editado['Estado'] = req.body.state;
   }
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
