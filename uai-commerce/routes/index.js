@@ -33,14 +33,30 @@ router.post('/nova_conta', function (req, res) {
     Email: req.body.email, 
     Telefone: req.body.phone,
     Senha: req.body.password,
-    CPF: req.body.cpf,
-    RG: req.body.rg,
-    DataNascimento:req.body.birthday,
     ADM: 0
+  }
+  
+  if(req.body.cnpj != ''){
+    novo_usuario['CNPJ'] = req.body.cnpj;
+    novo_usuario['TipoCadastro'] = 'empresa';
+    novo_usuario.ADM = 0;
+  }else{
+    novo_usuario['CPF'] = req.body.cpf;
+    novo_usuario['DataNascimento'] = req.body.birthday;
+    novo_usuario['TipoCadastro'] = 'pessoal';
   }
 
   if(req.body.passwordADM == senhaAdmin){
     novo_usuario.ADM = 1;
+    novo_usuario['RG'] = req.body.rg;
+  }else{
+    novo_usuario.ADM = 0;
+    novo_usuario['Rua'] = req.body.street;
+    novo_usuario['Bairro'] = req.body.district;
+    novo_usuario['Numero'] = req.body.number;
+    novo_usuario['Complemento'] = req.body.complement;
+    novo_usuario['Cidade'] = req.body.city;
+    novo_usuario['Estado'] = req.body.state;
   }
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
