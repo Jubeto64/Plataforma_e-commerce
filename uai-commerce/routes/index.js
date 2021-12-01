@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require("../db");
 var usuario_logado
+var usuario_edicao
 var senhaAdmin = 'admin123'
 
 /* GET home page. */
@@ -94,6 +95,7 @@ router.post('/id_edita_usuario',  function (req, res) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find({_id: req.body.id}).lean().exec(function (e, docs) {
     if(!e && docs.length > 0){
+      usuario_edicao = docs[0];
       res.render('edita_usuario', {docs, usuario_logado});
     }else{
       console.log('Erro ao fazer login!');
@@ -141,6 +143,14 @@ router.post('/edita_usuario', function(req, res, next) {
           }
         });
       }
+  });
+});
+
+router.get('/remove_usuario', function(req, res, next) {
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  Clientes.deleteOne({_id: usuario_edicao._id}).lean().exec(function (err, docs2) {
+    if(err)    return console.error(err);
+    else    res.render('home', { docs: [usuario_logado] });
   });
 });
 
