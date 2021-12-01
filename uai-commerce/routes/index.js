@@ -61,7 +61,7 @@ router.post('/nova_conta', function (req, res) {
   }
 
   //Validações
-  function CPFIsValid(cpf) {
+  /*function CPFIsValid(cpf) {
     if (cpf.length == 11) {
       return true;
     } else console.log("Formato do CPF inválido!");
@@ -103,7 +103,7 @@ router.post('/nova_conta', function (req, res) {
   } else {
     valid = CPFIsValid(req.body.cpf);
     if (valid) {
-      if (req.body.passwordADM != '') {
+      if (req.body.rg != '') {
         valid = RGIsValid(req.body.rg);
         if (valid) {
           var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
@@ -123,12 +123,30 @@ router.post('/nova_conta', function (req, res) {
               });
             }
           });
-        }else RGIsValid(req.body.rg);
+        } else RGIsValid(req.body.rg);
       }
-    }else CPFIsValid(req.body.cpf);
-  }
+    } else if (req.body.rg == '') {
+      var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+      var novo_cliente = new Clientes(novo_usuario);
+      novo_cliente.save(function (err) {
+        if (err) {
+          console.log("Error! " + err.message);
+          return err;
+        } else {
+          Clientes.find(novo_usuario).lean().exec(function (e, docs) {
+            if (!e) {
+              usuario_logado = docs[0];
+              res.render('home', { docs });
+            } else {
+              console.log('Erro ao fazer login!');
+            }
+          });
+        }
+      });
+    } else CPFIsValid(req.body.rg);
+  }*/
 
-  /*var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
+  var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   var novo_cliente = new Clientes(novo_usuario);
   novo_cliente.save(function (err) {
     if (err) {
@@ -144,7 +162,7 @@ router.post('/nova_conta', function (req, res) {
         }
       });
     }
-  });*/
+  });
 });
 
 router.get('/lista_usuarios', function (req, res, next) {
