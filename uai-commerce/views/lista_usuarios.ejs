@@ -65,14 +65,14 @@
                     <tr>
                       <th>Nome</th>
                       <th>E-mail</th>
-                      <th>CPF</th>
+                      <th>CPF/CNPJ</th>
                     </tr>
                     <div>
                         <% docs.forEach(function(usuario){ %>
                             <tr>
                                 <td w=><%= usuario.Nome %></td>
                                 <td><%= usuario.Email %></td>
-                                <td><%= usuario.CPF %></td>
+                                <td><%= usuario.TipoCadastro == 'empresa'? usuario.CNPJ : usuario.CPF %></td>
                                 <td>
                                     <form action="id_edita_usuario" method="post">
                                         <input type="hidden" value="<%= usuario._id %>" name="id">
