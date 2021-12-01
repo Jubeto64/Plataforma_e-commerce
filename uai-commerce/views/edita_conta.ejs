@@ -72,20 +72,62 @@
                   <input type="text" class="form-control" name="password" placeholder="Senha" value="<%= docs[0].Senha %>">
               </div>
               <br>
+
+              <% if(docs[0].TipoCadastro == 'empresa'){ %>
+              <div class="form-group">
+                <label for="cnpj">CNPJ</label>
+                <input type="text" class="form-control" name="cnpj" placeholder="CNPJ" value="<%= docs[0].CNPJ%>">
+              </div>
+              <% }else{ %>
               <div class="form-group">
                 <label for="cpf">CPF</label>
                 <input type="text" class="form-control" name="cpf" placeholder="CPF" value="<%= docs[0].CPF%>">
               </div>
               <br>
               <div class="form-group">
-                  <label for="rg">RG</label>
-                  <input type="text" class="form-control" name="rg" placeholder="RG"  value="<%= docs[0].RG%>">
-              </div>
-              <br>
-              <div class="form-group">
                   <label for="birthday">Data de Nascimento</label>
                   <input type="date" class="form-control" name="birthday"  value="<%= docs[0].DataNascimento %>">
               </div>
+              <br>
+              <% } %>
+
+              <% if(docs[0].ADM == '1'){ %>
+              <div class="form-group">
+                <label for="rg">RG</label>
+                <input type="text" class="form-control" name="rg" placeholder="RG"  value="<%= docs[0].RG%>">
+              </div>
+              <% }else{ %>
+              <div class="form-group">
+                <label for="street">Rua</label>
+                <input type="text" class="form-control" placeholder="Rua" name="street" value="<%= docs[0].Rua%>">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="district">Bairro</label>
+                <input type="text" class="form-control" placeholder="Bairro" name="district" value="<%= docs[0].Bairro%>">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="number">Número</label>
+                <input type="text" class="form-control" placeholder="Número" name="number" value="<%= docs[0].Numero%>">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="complement">Complemento</label>
+                <input type="text" class="form-control" placeholder="Complemento" name="complement" value="<%= docs[0].Complemento%>">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="city">Cidade</label>
+                <input type="text" class="form-control" placeholder="Cidade" name="city" value="<%= docs[0].Cidade%>">
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="state">Estado</label>
+                <input type="text" class="form-control" placeholder="Estado" name="state" value="<%= docs[0].Estado%>">
+              </div>
+              <br>
+              <% } %>
               <br>
               <br>
               <button type="submit" class="btn btn-success rounded-pill">Salvar Modificações</button>
