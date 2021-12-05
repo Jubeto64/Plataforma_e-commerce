@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Uai-commerce - Cadastrar Produto</title>
+  </head>
+  <body>
+    <div class="p-3 mb-2 bg-transparent text-dark">
+          <div class="container w-50 border py-5">
+            <div class="text-center center-div" id=''>
+                <h2 class="font-weight-bold">Forneça os dados do produto</h2>
+                <form action="/Produto" method='post' class="pt-3">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Produto" name="produto">
+                  </div>
+                  <div class="form-group">
+                    <input type="nubmer" class="form-control" placeholder="valor" name="name">
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Estoque disponível" name="estoque">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Principais caracteristicas" name="caracteristicas">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Descrição" name="Descrição" width 200px height 200px>
+                  </div>
+                  <scan><h4>Transportadoras disponíveis</h4></scan>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="">
+                        Correios
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="">
+                        Pituta
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                      <label class="form-check-label" for="">
+                        Caracois
+                      </label>
+                    </div>
+                    <div class="dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Esolha a Categoria do produto
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Eletrônico</a>
+                        <a class="dropdown-item" href="#">Tecnologia</a>
+                        <a class="dropdown-item" href='#'>Música</a>
+                        <a class="dropdown-item" href="#">Utensílios</a>
+                      </div>
+                    </div>
+                      <br>
+                    <div class="d-flex justify-content-center">
+                      <div class="btn btn-mdb-color btn-rounded float-left">
+                      <span>Escolha a imagem do produto</span>
+                        <input type="file">
+                      </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success rounded-pill">Cadastrar produto</button>
+              </form>
+            </div>
+        </div>
+      </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
