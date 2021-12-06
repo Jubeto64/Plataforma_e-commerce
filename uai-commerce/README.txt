@@ -21,3 +21,7 @@ http://localhost:3000/
 //consultar tudo que foi inserido direto pelo mongo
 use uai-commerce
 db.uaicommerce.find().pretty()
+
+//consultar produtos
+use uai-commerce
+db.produto.find().pretty()

@@ -15,12 +15,12 @@
           <div class="container w-50 border py-5">
             <div class="text-center center-div" id=''>
                 <h2 class="font-weight-bold">Forneça os dados do produto</h2>
-                <form action="/Produto" method='post' class="pt-3">
+                <form action="/produto" method='post' class="pt-3">
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Produto" name="product">
                   </div>
                   <div class="form-group">
-                    <input type="nubmer" class="form-control" placeholder="valor" name="value">
+                    <input type="nubmer" class="form-control" placeholder="Valor" name="value">
                   </div>
                   <div class="form-group">
                     <input type="number" class="form-control" placeholder="Estoque disponível" name="inventory">
@@ -50,18 +50,16 @@
                         Caracois
                       </label>
                     </div>
-                    <div class="dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Escolha a Categoria do produto
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Eletrônico</a>
-                        <a class="dropdown-item" href="#">Tecnologia</a>
-                        <a class="dropdown-item" href='#'>Música</a>
-                        <a class="dropdown-item" href="#">Utensílios</a>
-                      </div>
+                    <div class="form-group">
+                      <label for="category">Escolha a Categoria do produto</label>
+                      <select class="form-control" name="category">
+                        <option value="eletronico">Eletrônico</option>
+                        <option value="tecnologia">Tecnologia</option>
+                        <option value="musica">Música</option>
+                        <option value="utensilios">Utensílios</option>
+                      </select>
                     </div>
-                      <br>
+                    <br>
                     <div class="d-flex justify-content-center">
                       <div class="btn btn-mdb-color btn-rounded float-left">
                       <span>Escolha a imagem do produto</span>

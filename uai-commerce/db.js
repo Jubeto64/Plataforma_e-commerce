@@ -24,6 +24,23 @@ var userSchema = new mongoose.Schema(
         collection: 'uaicommerce',
         versionKey: false
     }
-); 
+);
 
-module.exports = { Mongoose: mongoose, UserSchema: userSchema }
+var productSchema = new mongoose.Schema(
+    {
+        Nome: String,
+        Imagem: String,
+        Preco: Number,
+        QuantidadeEstoque: Number,
+        Caracteristicas: String,
+        Descricao: String,
+        Categoria: String,
+        Transportadoras: String 
+    },
+    {
+        collection: 'produto',
+        versionKey: false
+    }
+);
+
+module.exports = { Mongoose: mongoose, UserSchema: userSchema, ProductSchema: productSchema }

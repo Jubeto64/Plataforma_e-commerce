@@ -299,6 +299,30 @@ router.get('/produto', function (req, res){
   res.render('produto');
 });
 
+router.post('/produto', function (req, res){
+  var produto_novo = {
+    Nome: req.body.product,
+    Imagem: 'imagem',
+    Preco: req.body.value,
+    QuantidadeEstoque: req.body.inventory,
+    Caracteristicas: req.body.characteristics,
+    Descricao: req.body.description,
+    Categoria: req.body.category,
+    Transportadoras: 'trasportadoras' 
+  }
+
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  var novo_produto = new Produto(produto_novo);
+  novo_produto.save(function (err) {
+    if (err) {
+      console.log("Error! " + err.message);
+      return err;
+    } else {
+      res.render('home', { docs: [usuario_logado] });
+    }
+  });
+});
+
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
 });
