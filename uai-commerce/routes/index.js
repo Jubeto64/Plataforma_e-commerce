@@ -301,7 +301,7 @@ router.get('/produto', function (req, res){
 
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
-})
+});
 
 
 module.exports = router;
