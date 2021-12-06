@@ -186,7 +186,7 @@ router.post('/id_edita_usuario', function (req, res) {
       console.log('Erro ao fazer login!');
     }
   });
-})
+});
 
 router.post('/edita_usuario', function (req, res, next) {
   var usuario_editado = {
@@ -294,6 +294,14 @@ router.get('/remove_conta', function (req, res, next) {
     else res.render('index', { title: "Cliente excluído!" });
   });
 });
+
+router.get('/produto', function (req, res){
+  res.render('produto');
+});
+
+router.get('/transportadora', function(req, res){
+  res.render('transportadora');
+})
 
 
 module.exports = router;
