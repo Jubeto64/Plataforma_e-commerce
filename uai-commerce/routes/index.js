@@ -396,4 +396,12 @@ router.post('/edita_transportadora', function (req, res, next) {
   });
 });
 
+router.get('/remove_transportadora', function (req, res, next) {
+  var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+  Transportadora.deleteOne({ _id: trasportadora_edicao._id }).lean().exec(function (err, docs2) {
+    if (err) return console.error(err);
+    else res.render('home', { docs: [usuario_logado] });
+  });
+});
+
 module.exports = router;
