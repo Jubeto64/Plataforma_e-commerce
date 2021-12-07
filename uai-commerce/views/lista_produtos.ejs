@@ -8,11 +8,20 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Uai-commerce</title>
+    <title>Uai-commerce ADM</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        
+        th, td {
+          padding: 10px;
+        }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Uai-commerce<%= docs[0].ADM == 1? ' ADM' : '' %></a>
+        <a class="navbar-brand" href="#">Uai-commerce<%= usuario_logado.ADM == 1? ' ADM' : '' %></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,7 +35,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <% if(docs[0].ADM == 1 ){ %>
+                <% if(usuario_logado.ADM == 1 ){ %>
                   <li class="nav-item active">
                     <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
                   </li>
@@ -39,13 +48,12 @@
                 <% } %>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <%= docs[0].Nome %>
+                        <%= usuario_logado.Nome %>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/edita_conta">Meu Perfil</a>
                         <a class="dropdown-item" href="/lista_produtos">Meus Produtos</a>
                         <a class="dropdown-item" href="#">Carrinho</a>
-                        <a class="dropdown-item" href='/produto'>Vender</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/">Sair</a>
                     </div>
@@ -54,10 +62,53 @@
         </div>
     </nav>
 
+    <div class="text-center center-div">
+        <div class="container w-100 border py-4">
+            <div class="title pb-5">
+                <h2 class="font-weight-bold">Lista de Produtos</h2>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Imagem</th>
+                      <th>Preço</th>
+                      <th>Quantidade no Estoque</th>
+                      <th>Caracteristicas</th>
+                      <th>Descrição</th>
+                      <th>Categoria</th>
+                      <th>Transportadoras</th>
+                    </tr>
+                    <div>
+                        <% docs.forEach(function(produto){ %>
+                            <tr>
+                                <td><%= produto.Nome %></td>
+                                <td><%= produto.Imagem %></td>
+                                <td><%= produto.Preco %></td>
+                                <td><%= produto.QuantidadeEstoque %></td>
+                                <td><%= produto.Caracteristicas %></td>
+                                <td><%= produto.Descricao %></td>
+                                <td><%= produto.Categoria %></td>
+                                <td><%= produto.Transportadoras %></td>
+                                <td>
+                                    <form action="id_edita_produto" method="post">
+                                        <input type="hidden" value="<%= produto._id %>" name="id">
+                                        <button type="submit" class="btn btn-success rounded-pill">Editar Produto</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <%})%>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

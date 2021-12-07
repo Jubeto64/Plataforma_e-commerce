@@ -324,6 +324,17 @@ router.post('/produto', function (req, res){
   });
 });
 
+router.get('/lista_produtos', function (req, res, next) {
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.find().lean().exec(function (e, docs) {
+    if (!e) {
+      res.render('lista_produtos', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao carregar a página');
+    }
+  });
+});
+
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
 });
