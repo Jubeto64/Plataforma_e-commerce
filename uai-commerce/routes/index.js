@@ -3,6 +3,7 @@ var router = express.Router();
 var db = require("../db");
 var usuario_logado
 var usuario_edicao
+var trasportadora_edicao
 var senhaAdmin = 'admin123'
 
 /* GET home page. */
@@ -355,6 +356,18 @@ router.get('/lista_transportadoras', function (req, res, next) {
       res.render('lista_transportadoras', { docs, usuario_logado });
     } else {
       console.log('Erro ao carregar a página');
+    }
+  });
+});
+
+router.post('/id_edita_transportadora', function (req, res) {
+  var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+  Transportadora.find({ _id: req.body.id }).lean().exec(function (e, docs) {
+    if (!e && docs.length > 0) {
+      trasportadora_edicao = docs[0];
+      res.render('edita_transportadora', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao fazer login!');
     }
   });
 });

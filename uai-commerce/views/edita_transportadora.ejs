@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Uai-commerce - Cadastrar Transportadora</title>
+  </head>
+  <body>
+    <div class="p-3 mb-2 bg-transparent text-dark">
+      <div class="container w-50 border py-5">
+        <div class="text-center center-div" id=''>
+          <h2 class="font-weight-bold">Transportadora</h2>
+          <form action="/transportadora" method='post' class="pt-3">
+            <div class="form-group">
+              <label for="shipping_company">Transportadora</label>
+              <input type="text" class="form-control" placeholder="Transportadora" name="shipping_company" value="<%= docs[0].Nome%>">
+            </div>
+            <div class="form-group">
+              <label for="registered_letter">Valor cobrado de carta registrada</label>
+              <input type="text" class="form-control" placeholder="Valor cobrado de carta registrada" name="registered_letter" value="<%= docs[0].PrecoCartaRegistrada%>">
+            </div>
+            <div class="form-group">
+              <label for="over_1kg">Valor cobrado para produtos acima de 1kg</label>
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 1kg" name="over_1kg" value="<%= docs[0].PrecoAcima1KG%>">
+            </div>
+            <div class="form-group">
+              <label for="over_10kg">Valor cobrado para produtos acima de 10kg</label>
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 10kg" name="over_10kg" value="<%= docs[0].PrecoAcima10KG%>">
+            </div>
+            <div class="form-group">
+              <label for="over_50kg">Valor cobrado para produtos acima de 50kg</label>
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 50kg" name="over_50kg" value="<%= docs[0].PrecoAcima50KG%>">
+            </div>
+            <input type="hidden" value="<%= docs[0]._id %>" name="id">
+            <button type="submit" class="btn btn-success rounded-pill">Salvar Modificações</button>
+            <a href="/remove_trasportadora">Remover Transportadora</a>
+          </form>
+      </div>     
+    </div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
