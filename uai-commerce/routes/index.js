@@ -348,5 +348,16 @@ router.post('/transportadora', function (req, res){
   });
 });
 
+router.get('/lista_transportadoras', function (req, res, next) {
+  var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+  Transportadora.find().lean().exec(function (e, docs) {
+    if (!e) {
+      res.render('lista_transportadoras', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao carregar a página');
+    }
+  });
+});
+
 
 module.exports = router;
