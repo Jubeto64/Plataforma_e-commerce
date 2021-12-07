@@ -327,5 +327,26 @@ router.get('/transportadora', function(req, res){
   res.render('transportadora');
 });
 
+router.post('/transportadora', function (req, res){
+  var transportadora_nova = {
+    Nome: req.body.shipping_company,
+    PrecoCartaRegistrada: req.body.registered_letter,
+    PrecoAcima1KG: req.body.over_1kg,
+    PrecoAcima10KG: req.body.over_10kg,
+    PrecoAcima50KG: req.body.over_50kg
+  }
+
+  var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+  var nova_transportadora = new Transportadora(transportadora_nova);
+  nova_transportadora.save(function (err) {
+    if (err) {
+      console.log("Error! " + err.message);
+      return err;
+    } else {
+      res.render('home', { docs: [usuario_logado] });
+    }
+  });
+});
+
 
 module.exports = router;

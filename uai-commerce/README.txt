@@ -25,3 +25,7 @@ db.uaicommerce.find().pretty()
 //consultar produtos
 use uai-commerce
 db.produto.find().pretty()
+
+//consultar trasportadoras
+use uai-commerce
+db.transportadora.find().pretty()

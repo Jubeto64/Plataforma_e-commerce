@@ -43,4 +43,23 @@ var productSchema = new mongoose.Schema(
     }
 );
 
-module.exports = { Mongoose: mongoose, UserSchema: userSchema, ProductSchema: productSchema }
+var shippingSchema = new mongoose.Schema(
+    {
+        Nome: String,
+        PrecoCartaRegistrada: Number,
+        PrecoAcima1KG: Number,
+        PrecoAcima10KG: Number,
+        PrecoAcima50KG: Number
+    },
+    {
+        collection: 'transportadora',
+        versionKey: false
+    }
+);
+
+module.exports = { 
+    Mongoose: mongoose,
+    UserSchema: userSchema,
+    ProductSchema: productSchema,
+    ShippingSchema: shippingSchema 
+}
