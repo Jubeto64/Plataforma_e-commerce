@@ -35,7 +35,8 @@ var productSchema = new mongoose.Schema(
         Caracteristicas: String,
         Descricao: String,
         Categoria: String,
-        Transportadoras: String 
+        Transportadoras: String,
+        IdVendedor: String 
     },
     {
         collection: 'produto',

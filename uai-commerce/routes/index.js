@@ -309,7 +309,8 @@ router.post('/produto', function (req, res){
     Caracteristicas: req.body.characteristics,
     Descricao: req.body.description,
     Categoria: req.body.category,
-    Transportadoras: 'trasportadoras' 
+    Transportadoras: 'trasportadoras',
+    IdVendedor: usuario_logado._id
   }
 
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
@@ -326,7 +327,7 @@ router.post('/produto', function (req, res){
 
 router.get('/lista_produtos', function (req, res, next) {
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
-  Produto.find().lean().exec(function (e, docs) {
+  Produto.find({IdVendedor: usuario_logado._id}).lean().exec(function (e, docs) {
     if (!e) {
       res.render('lista_produtos', { docs, usuario_logado });
     } else {
