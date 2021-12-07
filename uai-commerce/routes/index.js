@@ -372,5 +372,28 @@ router.post('/id_edita_transportadora', function (req, res) {
   });
 });
 
+router.post('/edita_transportadora', function (req, res, next) {
+  var transportadora_editada = {
+    Nome: req.body.shipping_company,
+    PrecoCartaRegistrada: req.body.registered_letter,
+    PrecoAcima1KG: req.body.over_1kg,
+    PrecoAcima10KG: req.body.over_10kg,
+    PrecoAcima50KG: req.body.over_50kg
+  }
+
+  var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+  Transportadora.updateOne({ "_id": req.body.id }, transportadora_editada, function (err) {
+    if (err) return console.error(err);
+    else {
+      Transportadora.find(transportadora_editada).lean().exec(function (e, docs2) {
+        if (!e) {
+          res.render('home', { docs: [usuario_logado] });
+        } else {
+          console.log('Erro ao fazer edição!');
+        }
+      });
+    }
+  });
+});
 
 module.exports = router;
