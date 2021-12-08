@@ -349,6 +349,33 @@ router.post('/id_edita_produto', function (req, res) {
   });
 });
 
+router.post('/edita_produto', function (req, res, next) {
+  var produto_editado = {
+    Nome: req.body.product,
+    Imagem: 'imagem',
+    Preco: req.body.value,
+    QuantidadeEstoque: req.body.inventory,
+    Caracteristicas: req.body.characteristics,
+    Descricao: req.body.description,
+    Categoria: req.body.category,
+    Transportadoras: 'trasportadoras',
+    IdVendedor: usuario_logado._id
+  }
+
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.updateOne({ "_id": req.body.id }, produto_editado, function (err) {
+    if (err) return console.error(err);
+    else {
+      Produto.find(produto_editado).lean().exec(function (e, docs2) {
+        if (!e) {
+          res.render('home', { docs: [usuario_logado] });
+        } else {
+          console.log('Erro ao fazer edição!');
+        }
+      });
+    }
+  });
+});
 
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
