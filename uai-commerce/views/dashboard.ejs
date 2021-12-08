@@ -6,20 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="stylesheets/styles.css">
     
-    <title>Uai-commerce ADM</title>
-    <style>
-        table, th, td {
-          border: 1px solid black;
-        }
-        
-        th, td {
-          padding: 10px;
-        }
-    </style>
+    <title>Uai-commerce</title>
   </head>
   <body>
     <div class="sidebar">
@@ -80,47 +70,6 @@
     </div>
 
     <div class="content">
-      <div class="text-center center-div">
-        <div class="container w-100 border py-4">
-            <div class="title pb-5">
-                <h2 class="font-weight-bold">Lista de Produtos</h2>
-            </div>
-            <div>
-                <table>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Imagem</th>
-                      <th>Preço</th>
-                      <th>Quantidade<br>no<br>Estoque</th>
-                      <th>Caracteristicas</th>
-                      <th>Descrição</th>
-                      <th>Categoria</th>
-                      <th>Transportadoras</th>
-                    </tr>
-                    <div>
-                        <% docs.forEach(function(produto){ %>
-                            <tr>
-                                <td><%= produto.Nome %></td>
-                                <td><%= produto.Imagem %></td>
-                                <td><%= produto.Preco %></td>
-                                <td><%= produto.QuantidadeEstoque %></td>
-                                <td><%= produto.Caracteristicas %></td>
-                                <td><%= produto.Descricao %></td>
-                                <td><%= produto.Categoria %></td>
-                                <td><%= produto.Transportadoras %></td>
-                                <td>
-                                    <form action="id_edita_produto" method="post">
-                                        <input type="hidden" value="<%= produto._id %>" name="id">
-                                        <button type="submit" class="btn btn-success rounded-pill">Editar Produto</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <%})%>
-                    </div>
-                </table>
-            </div>
-        </div>
-      </div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -128,5 +77,5 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>
