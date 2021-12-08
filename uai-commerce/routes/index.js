@@ -377,6 +377,14 @@ router.post('/edita_produto', function (req, res, next) {
   });
 });
 
+router.get('/remove_produto', function (req, res, next) {
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.deleteOne({ _id: produto_edicao._id }).lean().exec(function (err, docs2) {
+    if (err) return console.error(err);
+    else res.render('home', { docs: [usuario_logado] });
+  });
+});
+
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
 });
