@@ -4,6 +4,7 @@ var db = require("../db");
 var usuario_logado
 var usuario_edicao
 var trasportadora_edicao
+var produto_edicao
 var senhaAdmin = 'admin123'
 
 /* GET home page. */
@@ -335,6 +336,19 @@ router.get('/lista_produtos', function (req, res, next) {
     }
   });
 });
+
+router.post('/id_edita_produto', function (req, res) {
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.find({ _id: req.body.id }).lean().exec(function (e, docs) {
+    if (!e && docs.length > 0) {
+      produto_edicao = docs[0];
+      res.render('edita_produto', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao fazer login!');
+    }
+  });
+});
+
 
 router.get('/transportadora', function(req, res){
   res.render('transportadora');
