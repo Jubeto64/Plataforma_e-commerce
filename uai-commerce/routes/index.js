@@ -390,8 +390,4 @@ router.get('/remove_transportadora', function (req, res, next) {
   });
 });
 
-router.get('/dashboard', function (req, res, next) {
-  res.render('dashboard', { usuario_logado });
-});
-
 module.exports = router;

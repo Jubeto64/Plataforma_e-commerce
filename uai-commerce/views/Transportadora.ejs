@@ -7,95 +7,81 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    
+
     <title>Uai-commerce - Cadastrar Transportadora</title>
   </head>
   <body>
-    <div class="sidebar">
-      <div class="logo_content">
-        <div class="logo">
-          <i class='bx bxl-shopify'></i>
-          <div class="logo_name">Uai-commerce<%= usuario_logado.ADM == 1? ' ADM' : '' %></div>
-        </div>
-        <i class='bx bx-menu' id='btn' ></i>
-      </div>
-      <ul class="nav_list">
-        <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Producar produto...">
-        </li>
-        <li>
-          <a href="#">
-            <i class='bx bx-home' ></i>
-            <span class="links_name">Home</span>
-          </a>
-        </li>
-        <% if(usuario_logado.ADM == 1 ){ %>
-        <li>
-          <a href="lista_usuarios">
-            <i class='bx bx-list-ul' ></i>
-            <span class="links_name">Lista de Usuários</span>
-          </a>
-        </li>
-        <li>
-          <a href="/transportadora">
-            <i class='bx bx-package' ></i>
-            <span class="links_name">Adicionar Transportadoras</span>
-          </a>
-        </li>
-        <li>
-          <a href="/lista_transportadoras">
-            <i class='bx bx-list-ul' ></i>
-            <span class="links_name">Lista de Transportadoras</span>
-          </a>
-        </li>
-        <% } %>
-        <li>
-          <a href="#">
-            <i class='bx bx-user-circle'></i>
-            <span><%= usuario_logado.Nome %></span>
-          </a>
-          <ul class="sub-menu">
-            <li><a href="/edita_conta"><i class='bx bxs-user' ></i>Meu Perfil</a></li>
-            <% if(usuario_logado.ADM == 0 ){ %>
-            <li><a href="/lista_produtos"><i class='bx bx-cart' ></i>Meus Produtos</a></li>
-            <li><a href="#"><i class='bx bx-cart' ></i>Carrinho</a></li>
-            <li><a href="/produto"><i class='bx bx-cart' ></i>Vender</a></li>
-            <% } %>
-            <li><a href="/"><i class='bx bx-exit' ></i>Sair</a></li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Uai-commerce<%= usuario_logado.ADM == 1? ' ADM' : '' %></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Buscar Produtos" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+          </form>
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <% if(usuario_logado.ADM == 1 ){ %>
+                <li class="nav-item active">
+                  <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/transportadora">Adicionar Transportadora</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/lista_transportadoras">Lista de Transportadoras</a>
+                </li>
+              <% } %>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= usuario_logado.Nome %>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/edita_conta">Meu Perfil</a>
+                      <% if(usuario_logado.ADM == 0 ){ %>
+                      <a class="dropdown-item" href="/lista_produtos">Meus Produtos</a>
+                      <a class="dropdown-item" href="#">Carrinho</a>
+                      <a class="dropdown-item" href='/produto'>Vender</a>
+                      <% } %>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/">Sair</a>
+                  </div>
+              </li>
           </ul>
-        </li>
-      </ul>
+      </div>
+    </nav>
+
+    <div class="p-3 mb-2 bg-transparent text-dark">
+      <div class="container w-50 border py-5">
+        <div class="text-center center-div" id=''>
+          <h2 class="font-weight-bold">Transportadora</h2>
+          <form action="/transportadora" method='post' class="pt-3">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Transportadora" name="shipping_company">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Valor cobrado de carta registrada" name="registered_letter">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 1kg" name="over_1kg">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 10kg" name="over_10kg">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 50kg" name="over_50kg">
+            </div>
+            <button type="submit" class="btn btn-success rounded-pill">Cadastrar Transportadora</button>
+          </form>
+      </div>     
     </div>
 
-    <div class="content">
-      <div class="p-3 mb-2 bg-transparent text-dark">
-        <div class="container w-50 border py-5">
-          <div class="text-center center-div" id=''>
-            <h2 class="font-weight-bold">Transportadora</h2>
-            <form action="/transportadora" method='post' class="pt-3">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Transportadora" name="shipping_company">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Valor cobrado de carta registrada" name="registered_letter">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 1kg" name="over_1kg">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 10kg" name="over_10kg">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Valor cobrado para produtos acima de 50kg" name="over_50kg">
-              </div>
-              <button type="submit" class="btn btn-success rounded-pill">Cadastrar Transportadora</button>
-            </form>
-        </div>     
-      </div>
-    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
