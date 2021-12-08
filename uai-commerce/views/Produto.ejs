@@ -11,11 +11,56 @@
     <title>Uai-commerce - Cadastrar Produto</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Uai-commerce<%= usuario_logado.ADM == 1? ' ADM' : '' %></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Buscar Produtos" aria-label="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+          </form>
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <% if(usuario_logado.ADM == 1 ){ %>
+                <li class="nav-item active">
+                  <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/transportadora">Adicionar Transportadora</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/lista_transportadoras">Lista de Transportadoras</a>
+                </li>
+              <% } %>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= usuario_logado.Nome %>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/edita_conta">Meu Perfil</a>
+                      <% if(usuario_logado.ADM == 0 ){ %>
+                      <a class="dropdown-item" href="/lista_produtos">Meus Produtos</a>
+                      <a class="dropdown-item" href="#">Carrinho</a>
+                      <a class="dropdown-item" href='/produto'>Vender</a>
+                      <% } %>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/">Sair</a>
+                  </div>
+              </li>
+          </ul>
+      </div>
+    </nav>
+    
     <div class="p-3 mb-2 bg-transparent text-dark">
           <div class="container w-50 border py-5">
             <div class="text-center center-div" id=''>
                 <h2 class="font-weight-bold">Forneça os dados do produto</h2>
-                <form action="/produto" method='post' class="pt-3">
+                <form action="/produto" method='post' class="pt-3" enctype="multipart/form-data">
                   <div class="form-group">
                     <input type="text" class="form-control" placeholder="Produto" name="product">
                   </div>
@@ -32,24 +77,11 @@
                     <input type="text" class="form-control" placeholder="Descrição" name="description" width 200px height 200px>
                   </div>
                   <scan><h4>Transportadoras disponíveis</h4></scan>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      <label class="form-check-label" for="">
-                        Correios
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      <label class="form-check-label" for="">
-                        Pituta
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                      <label class="form-check-label" for="">
-                        Caracois
-                      </label>
-                    </div>
+                  <div class="form-group">
+                    <% docs.forEach(function(trasportadora){ %>
+                      <input type="checkbox" value="<%= trasportadora._id %>" name="shippingCheckbox"/><span><%= trasportadora.Nome %></span>
+                    <%})%>
+                  </div>
                     <div class="form-group">
                       <label for="category">Escolha a Categoria do produto</label>
                       <select class="form-control" name="category">
@@ -63,7 +95,7 @@
                     <div class="d-flex justify-content-center">
                       <div class="btn btn-mdb-color btn-rounded float-left">
                       <span>Escolha a imagem do produto</span>
-                        <input type="file">
+                        <input type="file" id="image" class="form-control">
                       </div>
                     </div>
                     <br>

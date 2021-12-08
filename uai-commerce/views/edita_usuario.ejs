@@ -30,6 +30,12 @@
                   <li class="nav-item active">
                     <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
                   </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/transportadora">Adicionar Transportadora</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/lista_transportadoras">Lista de Transportadoras</a>
+                  </li>
                 <% } %>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,14 +43,18 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/edita_conta">Meu Perfil</a>
+                        <% if(usuario_logado.ADM == 0 ){ %>
+                        <a class="dropdown-item" href="/lista_produtos">Meus Produtos</a>
                         <a class="dropdown-item" href="#">Carrinho</a>
+                        <a class="dropdown-item" href='/produto'>Vender</a>
+                        <% } %>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/">Sair</a>
                     </div>
                 </li>
             </ul>
         </div>
-    </nav>
+      </nav>
 
     <div class="text-center center-div" id=login>
       <div class="container w-50 border py-5">
