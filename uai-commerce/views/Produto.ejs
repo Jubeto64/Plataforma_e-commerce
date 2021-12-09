@@ -24,7 +24,7 @@
           </form>
           <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
               </li>
               <% if(usuario_logado.ADM == 1 ){ %>
                 <li class="nav-item active">
@@ -85,10 +85,15 @@
                     <div class="form-group">
                       <label for="category">Escolha a Categoria do produto</label>
                       <select class="form-control" name="category">
+                        <option value="alimentos">Alimentos</option>
+                        <option value="arte">Arte</option>
+                        <option value="beleza">Beleza</option>
                         <option value="eletronico">Eletrônico</option>
+                        <option value="musica">Música</option>]
+                        <option value="roupas">Roupas</option>
                         <option value="tecnologia">Tecnologia</option>
-                        <option value="musica">Música</option>
                         <option value="utensilios">Utensílios</option>
+
                       </select>
                     </div>
                     <br>

@@ -20,12 +20,16 @@ router.post('/login', (req, res) => {
   Clientes.find(filtro).lean().exec(function (e, docs) {
     if (!e && docs.length > 0) {
       usuario_logado = docs[0];
-      res.render('home', { docs });
+      res.render('home', { docs: [usuario_logado] });
     } else {
       console.log('Erro ao fazer login!');
     }
   });
 });
+
+router.get('/home', function (req, res, next){
+  res.render('home', { docs: [usuario_logado] });
+})
 
 router.get('/nova_conta', function (req, res, next) {
   res.render('nova_conta', { title: 'Express' });
@@ -73,7 +77,7 @@ router.post('/nova_conta', function (req, res) {
       Clientes.find(novo_usuario).lean().exec(function (e, docs) {
         if (!e) {
           usuario_logado = docs[0];
-          res.render('home', { docs });
+          res.render('home', { docs});
         } else {
           console.log('Erro ao fazer login!');
         }
@@ -139,7 +143,7 @@ router.post('/edita_usuario', function (req, res, next) {
     else {
       Clientes.find(usuario_editado).lean().exec(function (e, docs2) {
         if (!e) {
-          res.render('home', { docs: [usuario_logado] });
+          res.render('home', { docs: [usuario_editado] });
         } else {
           console.log('Erro ao fazer edição!');
         }
@@ -152,7 +156,7 @@ router.get('/remove_usuario', function (req, res, next) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.deleteOne({ _id: usuario_edicao._id }).lean().exec(function (err, docs2) {
     if (err) return console.error(err);
-    else res.render('home', { docs: [usuario_logado] });
+    else res.render('home', { docs: usuario_logado });
   });
 });
 
@@ -195,7 +199,7 @@ router.post('/edita_conta', function (req, res, next) {
       Clientes.find(usuario_editado).lean().exec(function (e, docs) {
         if (!e) {
           usuario_logado = docs[0];
-          res.render('home', { docs });
+          res.render('home', { docs: [usuario_editado] });
         } else {
           console.log('Erro ao fazer edição!');
         }
@@ -293,7 +297,7 @@ router.post('/edita_produto', function (req, res, next) {
     Caracteristicas: req.body.characteristics,
     Descricao: req.body.description,
     Categoria: req.body.category,
-    Transportadoras: 'trasportadoras',
+    Transportadoras: req.body.shippingCheckbox,
     IdVendedor: usuario_logado._id
   }
 
@@ -303,7 +307,7 @@ router.post('/edita_produto', function (req, res, next) {
     else {
       Produto.find(produto_editado).lean().exec(function (e, docs2) {
         if (!e) {
-          res.render('home', { docs: [usuario_logado], usuario_logado });
+          res.render('home', { docs: [usuario_logado] });
         } else {
           console.log('Erro ao fazer edição!');
         }
@@ -316,7 +320,7 @@ router.get('/remove_produto', function (req, res, next) {
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
   Produto.deleteOne({ _id: produto_edicao._id }).lean().exec(function (err, docs2) {
     if (err) return console.error(err);
-    else res.render('home', { docs: [usuario_logado], usuario_logado });
+    else res.render('home', { docs: [usuario_logado] });
   });
 });
 
@@ -383,7 +387,7 @@ router.post('/edita_transportadora', function (req, res, next) {
     else {
       Transportadora.find(transportadora_editada).lean().exec(function (e, docs2) {
         if (!e) {
-          res.render('home', { docs: [usuario_logado], usuario_logado });
+          res.render('home', { docs: [usuario_logado] });
         } else {
           console.log('Erro ao fazer edição!');
         }
@@ -396,7 +400,7 @@ router.get('/remove_transportadora', function (req, res, next) {
   var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
   Transportadora.deleteOne({ _id: trasportadora_edicao._id }).lean().exec(function (err, docs2) {
     if (err) return console.error(err);
-    else res.render('home', { docs: [usuario_logado], usuario_logado });
+    else res.render('home', { docs: [usuario_logado] });
   });
 });
 
@@ -404,10 +408,24 @@ router.post('/buscar_produto', function (req, res, next){
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
   Produto.find({Nome: {$regex: '.*' + req.body.searchbar + '.*'} }).lean().exec(function (e, docs) {
     if (!e) {
-      console.log(docs[0])
       res.render('buscar_produto', { docs, usuario_logado });
     } else {
       console.log('Erro ao carregar a página');
+    }
+  });
+});
+
+router.post('/pagina_produto', function (req, res) {
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.find({ _id: req.body.id }).lean().exec(function (e, docs) {
+    if (!e && docs.length > 0) {
+      pagina_produto = docs[0];
+      var Transportadora = db.Mongoose.model('transportadora', db.ShippingSchema, 'transportadora');
+      Transportadora.find().lean().exec(function (e, shipping) {
+        if (!e) res.render('pagina_produto', { docs, usuario_logado, shipping });
+      });
+    } else {
+      console.log('Erro ao fazer login!');
     }
   });
 });

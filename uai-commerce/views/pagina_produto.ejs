@@ -10,94 +10,16 @@
 
         <title>Uai-commerce ADM</title>
         <style>
-            table, th, td {
-              border: 1px solid black;
-            }
-            
-            th, td {
-              padding: 10px;
-            }
-
-            .grind-container{
-                display: grid;
-                grid-template-areas: 
-                'header'
-                'main'
-                'footer';
-                grid-template-columns: 1fr;
-                grid-template-rows: 5rem 1fr 5rem;
-                height: 100%;
-            }
-
-            .products{
-                display: flex;
-                flex-wrap: wrap;
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-                justify-content: center;
-            }
-
-            .products li{
-                flex: 0 1 30rem;
-                margin: 1rem;
-                margin-bottom: 0;
-                height: 26rem;
-                border-top: 0.2rem #e0e0e0 solid;
-            }
-
-            .product{
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                height: 100%;
-            }
-
-            .product img{
-                max-height: 26rem;
-                max-width: 22rem;
-                margin-top: 2rem;
-            }
-
-            .product-name{
-                line-height: 2.2rem;
-                font-size: 2rem;
-                padding-top: 5px;
-            }
-
-            .product-description{
-                font-size: 1.2rem;
-                color: #808080;
-            }
-
-            .product-price{
-                font-size: 2rem;
-            }
-
-            .product a{
-                text-decoration: none;
-                color:#000000;
-            }
-
-            .product a:hover{
-                color: #f08040;
-            }
-            
-            .product button{
-                text-decoration: none;
-                border: none;
-                background-color: transparent;
-                font-family: inherit;
-                padding: 0;
-                cursor: pointer;
-
-                @media screen and (-ms-high-contrast: active) {
-                    border: 2px solid currentcolor;
-                }
-            }
-
             *{
                 box-sizing: border-box;
+            }
+
+            .sproduct input{
+                width: 50px;
+                height: 40px;
+                padding-left: 10px;
+                font-size: 16px;
+                margin-right: 10px;
             }
         </style>
     </head>
@@ -150,37 +72,27 @@
         <div class="text-center center-div">
             <div class="container w-100 border py-4">
                 <div class="title pb-5">
-                    <h2 class="font-weight-bold">Resultados da Pesquisa </h2>
+                    <h2 class="font-weight-bold">Página do Produto: <%= docs[0].Nome %></h2>
                 </div>
-                <div class="grid-container">
-                    <main>
-                        <div>
-                            <ul class="products">
-                                <% docs.forEach(function(produto){ %>
-                                <li>
-                                    <div class="product">
-                                        <form action="pagina_produto" method="post">
-                                            <div>
-                                                <input type="hidden" value="<%= produto._id %>" name="id">
-                                                <button type="submit" class="button"><img src="/images/background.jpg" alt="product"/></button>
-                                            </div>
-                                            <div class="product-name">
-                                                <button type="submit" class="button"><%= produto.Nome %></button>
-                                            </div>
-                                        </form>
-                                        <div class="product-description">
-                                            <%= produto.Descricao %>
-                                        </div>
-                                        <div class="product-price">
-                                            R$ <%= produto.Preco %>
-                                        </div>
-                                    </div>
-                                </li>
-                                <%})%>
-                            </ul>
+                <section class="container sproduct my-6 pt-5">
+                    <div class="row mt-5">
+                        <div class="col-lg-5 col-md-12 col-12">
+                            <img class="img-fluid w-100" src="images/background.jpg" açt=""/>
                         </div>
-                    </main>
-                </div>
+                        <div class="col-lg-5 col-md-12 col-12">
+                            <h2><%= docs[0].Nome %></h2>
+                            <h5 class="mb-4"><%= docs[0].Descricao %></h5>
+                            <h2>R$ <%= docs[0].Preco %></h2>
+                            <input type="number" value="1" min="1" max="<%= docs[0].QuantidadeEstoque %>">
+                            <button class="btn btn-success rounded-pill">Adicionar ao carrinho</button>
+                            <br>
+                            <span>Disponível: <%= docs[0].QuantidadeEstoque %></span>
+                            <h4 class="mt-5">Características:</h4>
+                            <span><%= docs[0].Caracteristicas %></span>
+                            
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     
