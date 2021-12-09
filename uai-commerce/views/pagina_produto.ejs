@@ -44,6 +44,9 @@
                         <a class="nav-link" href="lista_usuarios">Lista de Usuários</a>
                         </li>
                         <li class="nav-item active">
+                            <a class="nav-link" href="lista_produtos_adm">Lista de Produtos</a>
+                        </li>
+                        <li class="nav-item active">
                         <a class="nav-link" href="/transportadora">Adicionar Transportadora</a>
                         </li>
                         <li class="nav-item active">
@@ -84,7 +87,7 @@
                             <h5 class="mb-4"><%= docs[0].Descricao %></h5>
                             <h2>R$ <%= docs[0].Preco %></h2>
                             <input type="number" value="1" min="1" max="<%= docs[0].QuantidadeEstoque %>">
-                            <button class="btn btn-success rounded-pill">Adicionar ao carrinho</button>
+                            <button class="btn btn-success rounded-pill" style="opacity: 1; transition: 0.3s all">Adicionar ao carrinho</button>
                             <br>
                             <span>Disponível: <%= docs[0].QuantidadeEstoque %></span>
                             <h4 class="mt-5">Características:</h4>

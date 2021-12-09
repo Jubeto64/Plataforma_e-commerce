@@ -15,21 +15,40 @@ router.get('/', function (req, res, next) {
 
 router.post('/login', (req, res) => {
   let filtro = { Email: req.body.email, Senha: req.body.password }
+  rand = Math.random();
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.find(filtro).lean().exec(function (e, docs) {
     if (!e && docs.length > 0) {
       usuario_logado = docs[0];
-      res.render('home', { docs: [usuario_logado] });
-    } else {
-      console.log('Erro ao fazer login!');
+      var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+      Produto.aggregate([{ $sample: { size: 4}}]).exec(function (e, docs2){
+        if(!e && docs2.length > 0){
+          produto_home = docs2;
+          res.render('home', { docs: [usuario_logado], produto_home });
+        } else{
+          produto_home = docs2;
+          res.render('home', { docs: [usuario_logado], produto_home });
+        }
+      })
+    }else{
+        console.log('Erro ao fazer login!');
     }
   });
 });
 
 router.get('/home', function (req, res, next){
-  res.render('home', { docs: [usuario_logado] });
-})
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.aggregate([{ $sample: { size: 4}}]).exec(function (e, docs) {
+    if (!e && docs.length > 0) {
+      produto_home = docs;
+      res.render('home', { docs: [usuario_logado], produto_home });
+    } else {
+      produto_home = docs;
+      res.render('home', { docs: [usuario_logado], produto_home });
+    }
+  });
+});
 
 router.get('/nova_conta', function (req, res, next) {
   res.render('nova_conta', { title: 'Express' });
@@ -69,21 +88,28 @@ router.post('/nova_conta', function (req, res) {
 
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   var novo_cliente = new Clientes(novo_usuario);
-  novo_cliente.save(function (err) {
+  novo_cliente.save(function (err){
     if (err) {
       console.log("Error! " + err.message);
       return err;
     } else {
-      Clientes.find(novo_usuario).lean().exec(function (e, docs) {
-        if (!e) {
-          usuario_logado = docs[0];
-          res.render('home', { docs});
-        } else {
-          console.log('Erro ao fazer login!');
-        }
-      });
+        Clientes.find(novo_usuario).lean().exec(function (e, docs){
+          if(!e){
+            usuario_logado = docs[0];
+            var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+            Produto.aggregate([{ $sample: { size: 4}}]).exec(function (e, docs2){
+              if(!e && docs2.length > 0){
+                produto_home = docs2;
+                res.render('home', { docs: [usuario_logado], produto_home });
+              } else {
+                produto_home = docs2;
+                res.render('home', { docs: [usuario_logado], produto_home });
+              }
+            })
+          }
+        })
     }
-  });
+  })
 });
 
 router.get('/lista_usuarios', function (req, res, next) {
@@ -156,7 +182,7 @@ router.get('/remove_usuario', function (req, res, next) {
   var Clientes = db.Mongoose.model('uaicommerce', db.UserSchema, 'uaicommerce');
   Clientes.deleteOne({ _id: usuario_edicao._id }).lean().exec(function (err, docs2) {
     if (err) return console.error(err);
-    else res.render('home', { docs: usuario_logado });
+    else res.render('home', { docs: [usuario_logado] });
   });
 });
 
@@ -273,6 +299,27 @@ router.get('/lista_produtos', function (req, res, next) {
   });
 });
 
+router.get('/lista_produtos_adm', function (req, res, next) {
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.find().lean().exec(function (e, docs) {
+    if (!e) {
+      docs.map((item_produto, i)=>{
+        docs[i]['NomeTransportadoras'] = ''
+        if(typeof( item_produto.Transportadoras) == 'object'){
+          item_produto.Transportadoras.map((item_transportadora, j)=>{
+            let virgula_espaco = j == item_produto.Transportadoras.length - 1 ? '' : ', ';
+            docs[i]['NomeTransportadoras'] += item_transportadora.split('_')[1] + virgula_espaco;
+          })
+        }
+      })
+
+      res.render('lista_produtos', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao carregar a página');
+    }
+  });
+});
+
 router.post('/id_edita_produto', function (req, res) {
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
   Produto.find({ _id: req.body.id }).lean().exec(function (e, docs) {
@@ -287,6 +334,8 @@ router.post('/id_edita_produto', function (req, res) {
     }
   });
 });
+
+
 
 router.post('/edita_produto', function (req, res, next) {
   var produto_editado = {
