@@ -252,6 +252,16 @@ router.get('/lista_produtos', function (req, res, next) {
   var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
   Produto.find({IdVendedor: usuario_logado._id}).lean().exec(function (e, docs) {
     if (!e) {
+      docs.map((item_produto, i)=>{
+        docs[i]['NomeTransportadoras'] = ''
+        if(typeof( item_produto.Transportadoras) == 'object'){
+          item_produto.Transportadoras.map((item_transportadora, j)=>{
+            let virgula_espaco = j == item_produto.Transportadoras.length - 1 ? '' : ', ';
+            docs[i]['NomeTransportadoras'] += item_transportadora.split('_')[1] + virgula_espaco;
+          })
+        }
+      })
+
       res.render('lista_produtos', { docs, usuario_logado });
     } else {
       console.log('Erro ao carregar a página');
