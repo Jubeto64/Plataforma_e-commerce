@@ -83,7 +83,7 @@
                   </div>
                   <h4>Transportadoras disponíveis</h4>
                   <% shipping.forEach(function(trasportadora){ %>
-                    <input type="checkbox" value="<%= trasportadora._id %>" name="shippingCheckbox"/><span><%= trasportadora.Nome %></span>
+                    <input type="checkbox" value="<%= trasportadora._id +'_'+ trasportadora.Nome%>" name="shippingCheckbox" <%= docs[0].Transportadoras.indexOf(trasportadora._id +'_'+ trasportadora.Nome) == -1 ? '' : 'checked'  %>/><span><%= trasportadora.Nome %></span>
                   <%})%>
                     </div>
                     <div class="form-group">
