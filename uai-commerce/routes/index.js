@@ -232,7 +232,7 @@ router.post('/produto', function (req, res){
     Caracteristicas: req.body.characteristics,
     Descricao: req.body.description,
     Categoria: req.body.category,
-    Transportadoras: 'transportadora',
+    Transportadoras: req.body.shippingCheckbox,
     IdVendedor: usuario_logado._id
   }
 
