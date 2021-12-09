@@ -390,4 +390,16 @@ router.get('/remove_transportadora', function (req, res, next) {
   });
 });
 
+router.post('/buscar_produto', function (req, res, next){
+  var Produto = db.Mongoose.model('produto', db.ProductSchema, 'produto');
+  Produto.find({Nome: {$regex: '.*' + req.body.searchbar + '.*'} }).lean().exec(function (e, docs) {
+    if (!e) {
+      console.log(docs[0])
+      res.render('buscar_produto', { docs, usuario_logado });
+    } else {
+      console.log('Erro ao carregar a página');
+    }
+  });
+});
+
 module.exports = router;
