@@ -293,7 +293,7 @@ router.post('/edita_produto', function (req, res, next) {
     Caracteristicas: req.body.characteristics,
     Descricao: req.body.description,
     Categoria: req.body.category,
-    Transportadoras: 'trasportadoras',
+    Transportadoras: req.body.shippingCheckbox,
     IdVendedor: usuario_logado._id
   }
 
