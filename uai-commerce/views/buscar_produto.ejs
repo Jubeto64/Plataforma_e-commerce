@@ -165,7 +165,7 @@
                                         <form action="pagina_produto" method="post">
                                             <div>
                                                 <input type="hidden" value="<%= produto._id %>" name="id">
-                                                <button type="submit" class="button"><img src="/images/background.jpg" alt="product"/></button>
+                                                <button type="submit" class="button"><img src="/images/<%= produto._id %>.png" alt="product"/></button>
                                             </div>
                                             <div class="product-name">
                                                 <button type="submit" class="button"><%= produto.Nome %></button>
